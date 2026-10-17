@@ -25,7 +25,16 @@
 (require 'cursorfree-core)
 (require 'phony)
 
-(phony-module cursorfree "cursorfree")
+(phony-module cursorfree)
+
+;;;###autoload
+(define-minor-mode cursorfree-phony-mode
+  "Phony command language for cursorfree."
+  :global t
+  :group 'cursorfree
+  (if cursorfree-phony-mode
+      (phony-enable-module 'cursorfree)
+    (phony-disable-module 'cursorfree)))
 
 (defvar cursorfree-phony--last-evaluation-result nil
   "The result of the last evaluated cursorfree command.")
