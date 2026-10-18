@@ -6,7 +6,7 @@
 ;; Keywords: convenience
 ;; Version: 1.0.0
 ;; Homepage: https://github.com/ErikPrantare/cursorfree.el
-;; Package-Requires: ((emacs "29.1") (phony "1.0.1"))
+;; Package-Requires: ((emacs "29.1") (phony "2.0.0"))
 ;; Created: 06 Sep 2024
 
 ;; cursorfree.el is free software; you can redistribute it and/or
