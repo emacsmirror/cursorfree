@@ -25,7 +25,16 @@
 (require 'cursorfree-core)
 (require 'phony)
 
-(phony-module cursorfree "cursorfree")
+(phony-module cursorfree)
+
+;;;###autoload
+(define-minor-mode cursorfree-phony-mode
+  "Phony command language for cursorfree."
+  :global t
+  :group 'cursorfree
+  (if cursorfree-phony-mode
+      (phony-enable-module 'cursorfree)
+    (phony-disable-module 'cursorfree)))
 
 (defvar cursorfree-phony--last-evaluation-result nil
   "The result of the last evaluated cursorfree command.")
@@ -213,7 +222,7 @@ See the rule `cursorfree-target' for the semantics of ELEMENTS."
   :contributes-to cursorfree-primitive
   n)
 
-(phony-defun cursorfree--character ("car" (c any-alphanumeric-key))
+(phony-defun cursorfree--character ("car" (c graphical-character))
   "A character C, given as a string."
   :contributes-to cursorfree-primitive
   (string c))
@@ -257,7 +266,7 @@ See the rule `cursorfree-target' for the semantics of ELEMENTS."
 (phony-defun cursorfree--hat
     ((? (color cursorfree--color))
      (? (shape cursorfree--shape))
-     (char any-alphanumeric-key))
+     (char graphical-character))
   "Hatty token indexed by COLOR, SHAPE and CHAR.
 
 See documentation for `hatty-locate-token' for more information."
@@ -323,7 +332,8 @@ Where to put it in relation to TO is given by MODIFIER."
 (phony-define-open-rule cursorfree-wrapper
   "Function ofthe one argument used to wrap a target with something.")
 
-(phony-defun cursorfree--character-wrapper ((? "car") (character symbol-key))
+(phony-defun cursorfree--character-wrapper
+    ((? "car") (character non-alphanumeric-character))
   "A wrapper that wraps with CHARACTER."
   :contributes-to cursorfree-wrapper
   (apply-partially #'cursorfree-wrap character))
@@ -341,7 +351,10 @@ If TARGET is not given, `cursorfree-this' is used."
   (cursorfree-unwrap target)
   (setq cursorfree--target-that target))
 
-(phony-defun cursorfree--rewrap ("rewrap" (? (target cursorfree-target)) "with" (character symbol-key))
+(phony-defun cursorfree--rewrap ("rewrap"
+                                 (? (target cursorfree-target))
+                                 "with"
+                                 (character non-alphanumeric-character))
   "Replace parentheses or quotation around TARGET with CHARACTER.
 
 If TARGET is not given, `cursorfree-this' is used."
@@ -403,13 +416,13 @@ CONTEXT-LINES is given, show that many lines of context."
   "Invoke VERB on TARGET."
   (funcall verb target))
 
-(phony-defun cursorfree--outside ("outside" (? (delimiter any-alphanumeric-key)))
+(phony-defun cursorfree--outside ("outside" (? (delimiter graphical-character)))
   "Modifier selecting outside of DELIMITER."
   :contributes-to cursorfree-modifier
   (lambda (&optional target)
     (cursorfree-outside target delimiter)))
 
-(phony-defun cursorfree--inside ("inside" (? (delimiter any-alphanumeric-key)))
+(phony-defun cursorfree--inside ("inside" (? (delimiter graphical-character)))
   "Modifier selecting inside of DELIMITER."
   :contributes-to cursorfree-modifier
   (lambda (&optional target)

@@ -28,7 +28,6 @@ faculties for VSCode.
 - [[#setup][Setup]]
   - [[#recommended-dependencies][Recommended dependencies]]
   - [[#installation][Installation]]
-  - [[#talon-integration][Talon integration]]
 - [[#usage][Usage]]
   - [[#spoken-command-structure][Spoken command structure]]
   - [[#primitives][Primitives]]
@@ -58,20 +57,9 @@ faculties for VSCode.
 :END:
 This package is available on [[https://melpa.org/#/getting-started][MELPA]] as ~cursorfree~.
 
-** Talon integration
-:PROPERTIES:
-:CUSTOM_ID: talon-integration
-:END:
-To use the spoken command language, first set up [[https://github.com/ErikPrantare/phony.el][phony.el]].
-
-The command language defined by cursorfree assumes that the rules
-~digit~, ~word~, ~number~, ~any-alphanumeric-key~, and ~symbol-key~
-are defined.  This may be provided by the user or by loading
-~phony-talon-community-bindings~ from phony.el.
-
-To enable the command language, either utter ~"phony enable
-cursorfree"~ or add ~(phony-enable-module 'cursorfree)~ to your
-configuration.
+To use the spoken command language, first set up [[https://github.com/ErikPrantare/phony.el][phony.el]].  You can
+then enable the spoken command language of cursorfree through
+~cursorfree-phony-mode~.
 
 * Usage
 :PROPERTIES:
