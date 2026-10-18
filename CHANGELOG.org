@@ -1,6 +1,8 @@
 * NEXT
 - New minor mode ~cursorfree-phony-mode~ for enabling and disabling
   the phony command language.
+- ~cursorfree-phony-mode~ now uses the phony standard library, so
+  there is no implicit dependency on talon-community anymore.
 
 * 1.0.0 [2026-09-06 Sun]
 Cursorfree is now on MELPA.
